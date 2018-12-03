@@ -9,6 +9,8 @@ public class Canvas {
     int width_one = 255;
     int height_one = 255;
 
+    private double fractionForNextGeneration = 0.5;
+
     double matchRate;
 
     List<Triangle> triangles;
@@ -29,5 +31,11 @@ public class Canvas {
     private double calMatchRate() {
         //TODO
         return 0;
+    }
+
+    //to do?
+    public ArrayList<Triangle> selection(List<Triangle> triangles) {
+        return new ArrayList<>();
+
     }
 }
