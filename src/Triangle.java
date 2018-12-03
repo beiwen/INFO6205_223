@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Triangle {
@@ -10,6 +11,7 @@ public class Triangle {
     Coordinate three;
 
     Color color;
+    Graphics2D gr2d;
 
     public Triangle(int width, int height) {
         ThreadLocalRandom tlr = ThreadLocalRandom.current();
@@ -23,6 +25,11 @@ public class Triangle {
 
     private void mutate(Triangle parent) {
         //TODO
+    }
+
+    private Graphics2D draw() {
+        //TODO
+        return this.gr2d;
     }
 
     class Coordinate {
