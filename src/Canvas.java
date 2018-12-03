@@ -15,17 +15,16 @@ public class Canvas {
 
     List<Triangle> triangles;
     BufferedImage bi;
-    BufferedImage target;
 
-    public Canvas(BufferedImage target) {
+    public Canvas() {
         this.triangles = new ArrayList<>();
         this.matchRate = 0;
         this.bi = null;
-        this.target = target;
     }
 
-    public void mutate(Canvas parent) {
+    public Canvas genNextGeneration(Canvas parent) {
         //TODO
+        return this;
     }
 
     private double calMatchRate() {
