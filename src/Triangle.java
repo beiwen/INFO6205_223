@@ -72,10 +72,18 @@ public class Triangle extends Polygon {
 
     public List<Triangle> reproduction(Triangle pair) {
         List<Triangle> res = new ArrayList<>();
+
+        if (pair == null) {
+            Genotype child = genotype.mutation(genotype);
+            res.add(new Triangle(child, target));
+            return res;
+        }
+
         List<Genotype> genes = pair.genotype.crossover(this.genotype);
         for (Genotype gene: genes) {
             res.add(new Triangle(gene, target));
         }
+
         res.add(new Triangle(this.genotype, target));
         res.add(new Triangle(pair.genotype, target));
         Collections.sort(res, new Comparator<Triangle>() {
@@ -84,7 +92,7 @@ public class Triangle extends Polygon {
                 return (int) (tri1.fitness - tri2.fitness);
             }
         });
-        return res.subList(0, 4);
+        return res.subList(0, 2);
     }
 
     public double getFitness() {

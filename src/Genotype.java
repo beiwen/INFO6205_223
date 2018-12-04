@@ -91,7 +91,7 @@ public class Genotype {
     }
 
     // To do, get called by crossover
-    private Genotype mutation(Genotype target) {
+    public Genotype mutation(Genotype target) {
 
         double randomforCoordinateOne = tlr.nextDouble();
         if(randomforCoordinateOne <= maxMutateRate) {
