@@ -84,6 +84,7 @@ public class Genotype {
             } else {
                 child.setColorChromo(pair.getColorChromo());
             }
+            child = mutation(child);
             children.add(child);
         }
         return children;
@@ -157,12 +158,8 @@ public class Genotype {
         }
 
         double randomforCorlorA = tlr.nextDouble();
-        if(randomforCorlorA <= maxMutateRate) {
-            target.colorChromo.alpha = tlr.nextInt(0, 256);
-        } else if(randomforCorlorA > maxMutateRate && randomforCorlorA <= midMutateRate) {
-            target.colorChromo.alpha = Math.min(Math.max(0, target.colorChromo.alpha + tlr.nextInt(-30, 31)), 255);
-        } else if(randomforCorlorA <= minMutateRate && randomforCorlorA > midMutateRate) {
-            target.colorChromo.alpha = Math.min(Math.max(0, target.colorChromo.alpha + tlr.nextInt(-10, 11)), 255);
+        if(randomforCorlorA <= midMutateRate) {
+            target.colorChromo.alpha = tlr.nextInt(95, 115);
         }
         return target;
     }

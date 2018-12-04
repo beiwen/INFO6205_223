@@ -34,10 +34,10 @@ public class Triangle extends Polygon {
     }
 
     private void getColorFromGene(Genotype gene) {
-        float r = gene.getColorChromo().getRed() / 255;
-        float g = gene.getColorChromo().getGreen() / 255;
-        float b = gene.getColorChromo().getBlue() / 255;
-        float a = gene.getColorChromo().getAlpha() / 255;
+        float r = (float) (gene.getColorChromo().getRed() / 255.0);
+        float g = (float) (gene.getColorChromo().getGreen() / 255.0);
+        float b = (float) (gene.getColorChromo().getBlue() / 255.0);
+        float a = (float) (gene.getColorChromo().getAlpha() / 255.0);
 
         this.color = new Color(r, g, b, a);
     }
@@ -51,7 +51,7 @@ public class Triangle extends Polygon {
                 }
             }
         }
-        return res;
+        return 1 / res;
     }
 
     private double calFitHelper(BufferedImage target, int x, int y) {
@@ -61,13 +61,13 @@ public class Triangle extends Polygon {
         int tarG = (tarColor >> 8) & 0xFF;
         int tarB = tarColor & 0xFF;
 
-        int a = genotype.getColorChromo().getAlpha();
+//        int a = genotype.getColorChromo().getAlpha();
         int r = genotype.getColorChromo().getRed();
         int g = genotype.getColorChromo().getGreen();
         int b = genotype.getColorChromo().getBlue();
 
-        double tmp = Math.pow((a - tarA), 2) + Math.pow((r - tarR), 2) + Math.pow((g - tarG), 2) + Math.pow((b - tarB), 2);
-        return 1 / tmp;
+        double tmp = Math.pow((r - tarR), 2) + Math.pow((g - tarG), 2) + Math.pow((b - tarB), 2);
+        return tmp;
     }
 
     public List<Triangle> reproduction(Triangle pair) {

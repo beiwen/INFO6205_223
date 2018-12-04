@@ -7,7 +7,7 @@ public class Canvas {
     private final int height_one = 255;
     private BufferedImage target;
     private final double fractionForNextGeneration = 0.5;
-    private double matchRate;
+    double matchRate;
     List<Triangle> triangles;
 
     public Canvas(BufferedImage target, List<Triangle> candidates) {
@@ -20,6 +20,9 @@ public class Canvas {
             }
         } else {
             this.triangles = candidates;
+        }
+        for (Triangle tri: triangles) {
+            matchRate += tri.fitness;
         }
     }
 
