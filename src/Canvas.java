@@ -36,25 +36,30 @@ public class Canvas {
     }
 
 
-    public ArrayList<Triangle> selection(List<Triangle> triangles) {
+    public Triangle[] selection(List<Triangle> triangles) {
         int numberOfSelected = (int)(triangles.size() * fractionForNextGeneration);
-        PriorityQueue<Triangle> minHeap = new PriorityQueue<>(numberOfSelected, new MyComparator<Triangle>());
+        PriorityQueue<Triangle> minHeap = new PriorityQueue<>(numberOfSelected, new MyComparator());
         for(Triangle triangle : triangles) {
             if(minHeap.size() != numberOfSelected) {
                 minHeap.offer(triangle);
             } else {
-
+                if(triangle.getFitness() > minHeap.peek().getFitness()) {
+                    minHeap.poll();
+                    minHeap.offer(triangle);
+                }
             }
         }
 
-        return new ArrayList<>();
-
+        return (Triangle[]) minHeap.toArray();
     }
 
-    private static class MyComparator<Triangle> implements Comparator<Triangle> {
+    static class MyComparator implements Comparator<Triangle> {
         @Override
         public int compare(Triangle o1, Triangle o2) {
-            return 0;
+            if(o1.getFitness() == o2.fitness) {
+                return 0;
+            }
+            return o1.getFitness() < o2.getFitness()? -1 : 1;
         }
     }
 
