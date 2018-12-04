@@ -19,6 +19,7 @@ public class Genotype {
         this.color = new Color();
     }
 
+
     public Coordinate getOne() {
         return one;
     }
@@ -144,6 +145,23 @@ public class Genotype {
         public Coordinate(int ver, int hor) {
             this.vertical = ver;
             this.horizontal = hor;
+        }
+
+
+        public int getVertical() {
+            return vertical;
+        }
+
+        public void setVertical(int vertical) {
+            this.vertical = vertical;
+        }
+
+        public int getHorizontal() {
+            return horizontal;
+        }
+
+        public void setHorizontal(int horizontal) {
+            this.horizontal = horizontal;
         }
     }
 
