@@ -3,32 +3,29 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Canvas {
-    double mutateRate = 0.01;
-    int width = 256;
-    int height = 256;
-    int width_one = 255;
-    int height_one = 255;
-    BufferedImage target;
-
+    private final int width_one = 255;
+    private final int height_one = 255;
+    private BufferedImage target;
     private final double fractionForNextGeneration = 0.5;
-
-    double matchRate;
-
+    private double matchRate;
     List<Triangle> triangles;
-    BufferedImage bi;
 
-    public Canvas(BufferedImage target) {
-        this.triangles = new ArrayList<>();
+    public Canvas(BufferedImage target, List<Triangle> candidates) {
         this.matchRate = 0;
         this.target = target;
-        for (int i = 0; i < 100; i++) {
-            triangles.add(new Triangle(new Genotype(width_one, height_one), target));
+        if(candidates == null) {
+            this.triangles = new ArrayList<>();
+            for (int i = 0; i < 100; i++) {
+                triangles.add(new Triangle(new Genotype(width_one, height_one), target));
+            }
+        } else {
+            this.triangles = candidates;
         }
     }
 
     public Canvas genNextGeneration() {
-        //TODO, need to continue implementing!!!:
         List<Triangle> selectedCandidates = selection(this.triangles);
+        List<Triangle> nextCandidates = new ArrayList<>();
         for(int i = selectedCandidates.size() - 1; i >= 1; i-=2) {
             ThreadLocalRandom tlr = ThreadLocalRandom.current();
             int pairOneIndex = tlr.nextInt(0, i);
@@ -36,8 +33,10 @@ public class Canvas {
             Triangle pairOne =selectedCandidates.get(pairOneIndex);
             Triangle pairTwo = selectedCandidates.get(pairTwoIndex);
             List<Triangle> childrenTriangles = pairOne.reproduction(pairTwo);
+            nextCandidates.addAll(childrenTriangles);
         }
-        return this;
+        Canvas newCanvas = new Canvas(target, nextCandidates);
+        return newCanvas;
     }
 
     private double calMatchRate() {

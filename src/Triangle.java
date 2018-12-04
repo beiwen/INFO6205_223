@@ -8,9 +8,9 @@ import java.util.List;
 public class Triangle extends Polygon {
 
     BufferedImage target;
-    double fitness;
 
-    Genotype genotype;
+    double fitness;
+    private Genotype genotype;
     Color color;
 
     public Triangle(Genotype gene, BufferedImage target) {
