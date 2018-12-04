@@ -16,7 +16,7 @@ public class MainGA {
             e.printStackTrace();
         }
 
-        Canvas canvas = new Canvas();
+        Canvas canvas = new Canvas(target);
 
         int i = 0;
 
