@@ -2,16 +2,16 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Triangle extends Polygon {
-    double maxMutateRate;
-    double midMutateRate;
-    double minMutateRate;
+    BufferedImage target;
+
+    double fitness;
 
     Genotype genotype;
     Color color;
     Graphics2D gr2d;
 
 
-    public Triangle(Genotype gene) {
+    public Triangle(Genotype gene, BufferedImage target) {
         this.npoints = 3;
         this.xpoints = new int[3];
         this.ypoints = new int[3];
@@ -27,7 +27,8 @@ public class Triangle extends Polygon {
 
         getColorFromGene(gene);
         this.genotype = gene;
-
+        this.target = target;
+        fitness = calFitness(target);
     }
 
     private void getColorFromGene(Genotype gene) {
@@ -41,7 +42,7 @@ public class Triangle extends Polygon {
 
     public double calFitness(BufferedImage target) {
         double res = 0;
-        for (int x = 0; i < 256; i++) {
+        for (int x = 0; x < 256; x++) {
             for (int y = 0; y < 256; y++) {
                 if (this.contains(x, y)) {
                     res += calFitHelper(target, x, y);
@@ -63,7 +64,8 @@ public class Triangle extends Polygon {
         int g = genotype.getColorChromo().getGreen();
         int b = genotype.getColorChromo().getBlue();
 
-        return Math.pow((a - tarA), 2) + Math.pow((r - tarR), 2) + Math.pow((g - tarG), 2) + Math.pow((b - tarB), 2);
+        double tmp = Math.pow((a - tarA), 2) + Math.pow((r - tarR), 2) + Math.pow((g - tarG), 2) + Math.pow((b - tarB), 2);
+        return 1 / tmp;
     }
 
     private void mutate(Triangle parent) {
@@ -73,6 +75,14 @@ public class Triangle extends Polygon {
     private Graphics2D draw() {
         //TODO
         return this.gr2d;
+    }
+
+    public double getFitness() {
+        return fitness;
+    }
+
+    public void setFitness(double fitness) {
+        this.fitness = fitness;
     }
 
 }
