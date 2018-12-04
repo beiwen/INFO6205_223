@@ -26,12 +26,17 @@ public class Canvas {
     public Canvas genNextGeneration() {
         List<Triangle> selectedCandidates = selection(this.triangles);
         List<Triangle> nextCandidates = new ArrayList<>();
-        for(int i = selectedCandidates.size() - 1; i >= 1; i-=2) {
+        while(!selectedCandidates.isEmpty()) {
             ThreadLocalRandom tlr = ThreadLocalRandom.current();
-            int pairOneIndex = tlr.nextInt(0, i);
-            int pairTwoIndex = tlr.nextInt(0, i - 1);
-            Triangle pairOne =selectedCandidates.get(pairOneIndex);
-            Triangle pairTwo = selectedCandidates.get(pairTwoIndex);
+            int pairOneIndex = 0;
+            int pairTwoIndex;
+            if(selectedCandidates.size() == 2) {
+                pairTwoIndex = 1;
+            } else {
+                pairTwoIndex = tlr.nextInt(1, selectedCandidates.size());
+            }
+            Triangle pairTwo = selectedCandidates.remove(pairTwoIndex);
+            Triangle pairOne =selectedCandidates.remove(pairOneIndex);
             List<Triangle> childrenTriangles = pairOne.reproduction(pairTwo);
             nextCandidates.addAll(childrenTriangles);
         }
@@ -58,7 +63,7 @@ public class Canvas {
             }
         }
 
-        return Arrays.asList((minHeap.toArray(new Triangle[minHeap.size()])));
+        return new LinkedList<>(Arrays.asList((minHeap.toArray(new Triangle[minHeap.size()]))));
     }
 
     static class MyComparator implements Comparator<Triangle> {

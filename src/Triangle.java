@@ -84,7 +84,7 @@ public class Triangle extends Polygon {
                 return (int) (tri1.fitness - tri2.fitness);
             }
         });
-        return res.subList(0, 5);
+        return res.subList(0, 4);
     }
 
     public double getFitness() {

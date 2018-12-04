@@ -23,7 +23,7 @@ public class MainGA {
         while (true) {
             if (i % 1024 == 0) {
                 BufferedImage output = new BufferedImage(256, 256, BufferedImage.TYPE_INT_ARGB);
-                File pngOutPut = new File("res_generation_" + i + 1);
+                File pngOutPut = new File("res_generation_" + i + 1 + ".png");
                 for (Triangle trg: canvas.triangles) {
                     Graphics2D g2d = (Graphics2D) output.getGraphics();
                     g2d.setColor(trg.color);
