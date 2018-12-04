@@ -2,44 +2,48 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Genotype {
-    private Coordinate one;
-    private Coordinate two;
-    private Coordinate three;
+    private CoordinateChromo one;
+    private CoordinateChromo two;
+    private CoordinateChromo three;
     private ColorChromo colorChromo;
-    private double maxMutateRate = 0.08;
-    private double midMutateRate = 0.3;
-    private double minMutateRate = 0.8;
+    private final double maxMutateRate = 0.08;
+    private final double midMutateRate = 0.3;
+    private final double minMutateRate = 0.8;
+    private final int fecundityOfmating = 4;
     private ThreadLocalRandom tlr = ThreadLocalRandom.current();
 
     public Genotype(int width, int height){
-        this.one = new Coordinate(tlr.nextInt(0, width + 1), tlr.nextInt(0, height + 1));
-        this.two = new Coordinate(tlr.nextInt(0, width + 1), tlr.nextInt(0, height + 1));
-        this.three = new Coordinate(tlr.nextInt(0, width + 1), tlr.nextInt(0, height + 1));
+        this.one = new CoordinateChromo(tlr.nextInt(0, width + 1), tlr.nextInt(0, height + 1));
+        this.two = new CoordinateChromo(tlr.nextInt(0, width + 1), tlr.nextInt(0, height + 1));
+        this.three = new CoordinateChromo(tlr.nextInt(0, width + 1), tlr.nextInt(0, height + 1));
         this.colorChromo = new ColorChromo();
     }
 
+    public Genotype() {
 
-    public Coordinate getOne() {
+    }
+
+    public CoordinateChromo getOne() {
         return one;
     }
 
-    public void setOne(Coordinate one) {
+    public void setOne(CoordinateChromo one) {
         this.one = one;
     }
 
-    public Coordinate getTwo() {
+    public CoordinateChromo getTwo() {
         return two;
     }
 
-    public void setTwo(Coordinate two) {
+    public void setTwo(CoordinateChromo two) {
         this.two = two;
     }
 
-    public Coordinate getThree() {
+    public CoordinateChromo getThree() {
         return three;
     }
 
-    public void setThree(Coordinate three) {
+    public void setThree(CoordinateChromo three) {
         this.three = three;
     }
 
@@ -53,8 +57,36 @@ public class Genotype {
 
     // Implement:
     public ArrayList<Genotype> crossover(Genotype pair){
-        
-        return new ArrayList<>();
+        ArrayList<Genotype> children = new ArrayList<>();
+        for(int i = 0; i < fecundityOfmating; i++) {
+            Genotype child = new Genotype();
+            int random = tlr.nextInt(0, 2);
+            if(random == 0) {
+                child.setOne(this.getOne());
+            } else {
+                child.setOne(pair.getOne());
+            }
+            random = tlr.nextInt(0, 2);
+            if(random == 0) {
+                child.setTwo(this.getTwo());
+            } else {
+                child.setTwo(pair.getTwo());
+            }
+            random = tlr.nextInt(0, 2);
+            if(random == 0) {
+                child.setThree(this.getThree());
+            } else {
+                child.setThree(pair.getThree());
+            }
+            random = tlr.nextInt(0, 2);
+            if(random == 0) {
+                child.setColorChromo(this.getColorChromo());
+            } else {
+                child.setColorChromo(pair.getColorChromo());
+            }
+            children.add(child);
+        }
+        return children;
     }
 
     // To do, get called by crossover
@@ -137,11 +169,11 @@ public class Genotype {
 
 
 
-    class Coordinate {
+    class CoordinateChromo {
         private int vertical;
         private int horizontal;
 
-        public Coordinate(int ver, int hor) {
+        public CoordinateChromo(int ver, int hor) {
             this.vertical = ver;
             this.horizontal = hor;
         }
