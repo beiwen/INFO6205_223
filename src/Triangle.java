@@ -39,7 +39,7 @@ public class Triangle extends Polygon {
         this.color = new Color(r, g, b, a);
     }
 
-    private double calFitness(BufferedImage target) {
+    public double calFitness(BufferedImage target) {
         double res = 0;
         for (int x = 0; i < 256; i++) {
             for (int y = 0; y < 256; y++) {
