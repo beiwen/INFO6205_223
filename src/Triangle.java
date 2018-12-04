@@ -34,10 +34,10 @@ public class Triangle extends Polygon {
     }
 
     private void getColorFromGene(Genotype gene) {
-        float r = gene.getColorChromo().getRed();
-        float g = gene.getColorChromo().getGreen();
-        float b = gene.getColorChromo().getBlue();
-        float a = gene.getColorChromo().getAlpha();
+        float r = gene.getColorChromo().getRed() / 255;
+        float g = gene.getColorChromo().getGreen() / 255;
+        float b = gene.getColorChromo().getBlue() / 255;
+        float a = gene.getColorChromo().getAlpha() / 255;
 
         this.color = new Color(r, g, b, a);
     }

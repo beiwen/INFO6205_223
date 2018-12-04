@@ -58,7 +58,7 @@ public class Canvas {
             }
         }
 
-        return Arrays.asList((Triangle[]) minHeap.toArray());
+        return Arrays.asList((minHeap.toArray(new Triangle[minHeap.size()])));
     }
 
     static class MyComparator implements Comparator<Triangle> {
