@@ -19,7 +19,10 @@ public class Canvas {
     public Canvas() {
         this.triangles = new ArrayList<>();
         this.matchRate = 0;
-        this.bi = null;
+
+        for (int i = 0; i < 100; i++) {
+            triangles.add(new Triangle(new Genotype(width_one, height_one)));
+        }
     }
 
     public Canvas genNextGeneration(Canvas parent) {
