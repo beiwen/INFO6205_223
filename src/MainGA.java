@@ -26,7 +26,9 @@ public class MainGA {
                 BufferedImage output = new BufferedImage(256, 256, BufferedImage.TYPE_INT_ARGB);
                 File pngOutPut = new File("res_generation_" + i + 1);
                 for (Triangle trg: canvas.triangles) {
-
+                    Graphics2D g2d = (Graphics2D) output.getGraphics();
+                    g2d.setColor(trg.color);
+                    g2d.fillPolygon(trg);
                 }
                 try {
                     ImageIO.write(output, "png", pngOutPut);
