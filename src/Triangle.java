@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Triangle extends Polygon {
     BufferedImage target;
@@ -8,8 +10,6 @@ public class Triangle extends Polygon {
 
     Genotype genotype;
     Color color;
-    Graphics2D gr2d;
-
 
     public Triangle(Genotype gene, BufferedImage target) {
         this.npoints = 3;
@@ -68,13 +68,14 @@ public class Triangle extends Polygon {
         return 1 / tmp;
     }
 
-    private void mutate(Triangle parent) {
+    private List<Triangle> reproduction(Triangle pair) {
         //TODO
-    }
-
-    private Graphics2D draw() {
-        //TODO
-        return this.gr2d;
+        List<Triangle> res = new ArrayList<>();
+        List<Genotype> genes = pair.genotype.crossover(this.genotype);
+        for (Genotype gene: genes) {
+            res.add(new Triangle(gene, target));
+        }
+        return res;
     }
 
     public double getFitness() {
