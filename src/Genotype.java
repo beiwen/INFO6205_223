@@ -1,12 +1,11 @@
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Genotype {
     private Coordinate one;
     private Coordinate two;
     private Coordinate three;
-    private Color color;
+    private ColorChromo colorChromo;
     private double maxMutateRate = 0.08;
     private double midMutateRate = 0.3;
     private double minMutateRate = 0.8;
@@ -16,7 +15,7 @@ public class Genotype {
         this.one = new Coordinate(tlr.nextInt(0, width + 1), tlr.nextInt(0, height + 1));
         this.two = new Coordinate(tlr.nextInt(0, width + 1), tlr.nextInt(0, height + 1));
         this.three = new Coordinate(tlr.nextInt(0, width + 1), tlr.nextInt(0, height + 1));
-        this.color = new Color();
+        this.colorChromo = new ColorChromo();
     }
 
 
@@ -44,12 +43,12 @@ public class Genotype {
         this.three = three;
     }
 
-    public Color getColor() {
-        return color;
+    public ColorChromo getColorChromo() {
+        return colorChromo;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setColorChromo(ColorChromo colorChromo) {
+        this.colorChromo = colorChromo;
     }
 
     // Implement:
@@ -100,38 +99,38 @@ public class Genotype {
         // corlor
         double randomforCorlorR = tlr.nextDouble();
         if(randomforCorlorR <= maxMutateRate) {
-            target.color.red = tlr.nextInt(0, 256);
+            target.colorChromo.red = tlr.nextInt(0, 256);
         } else if(randomforCorlorR > maxMutateRate && randomforCorlorR <= midMutateRate) {
-            target.color.red = Math.min(Math.max(0, target.color.red + tlr.nextInt(-30, 31)), 255);
+            target.colorChromo.red = Math.min(Math.max(0, target.colorChromo.red + tlr.nextInt(-30, 31)), 255);
         } else if(randomforCorlorR <= minMutateRate && randomforCorlorR > midMutateRate) {
-            target.color.red = Math.min(Math.max(0, target.color.red + tlr.nextInt(-10, 11)), 255);
+            target.colorChromo.red = Math.min(Math.max(0, target.colorChromo.red + tlr.nextInt(-10, 11)), 255);
         }
 
         double randomforCorlorG = tlr.nextDouble();
         if(randomforCorlorG <= maxMutateRate) {
-            target.color.green = tlr.nextInt(0, 256);
+            target.colorChromo.green = tlr.nextInt(0, 256);
         } else if(randomforCorlorG > maxMutateRate && randomforCorlorG <= midMutateRate) {
-            target.color.green = Math.min(Math.max(0, target.color.green + tlr.nextInt(-30, 31)), 255);
+            target.colorChromo.green = Math.min(Math.max(0, target.colorChromo.green + tlr.nextInt(-30, 31)), 255);
         } else if(randomforCorlorG <= minMutateRate && randomforCorlorG > midMutateRate) {
-            target.color.green = Math.min(Math.max(0, target.color.green + tlr.nextInt(-10, 11)), 255);
+            target.colorChromo.green = Math.min(Math.max(0, target.colorChromo.green + tlr.nextInt(-10, 11)), 255);
         }
 
         double randomforCorlorB = tlr.nextDouble();
         if(randomforCorlorB <= maxMutateRate) {
-            target.color.blue = tlr.nextInt(0, 256);
+            target.colorChromo.blue = tlr.nextInt(0, 256);
         } else if(randomforCorlorB > maxMutateRate && randomforCorlorB <= midMutateRate) {
-            target.color.blue = Math.min(Math.max(0, target.color.blue + tlr.nextInt(-30, 31)), 255);
+            target.colorChromo.blue = Math.min(Math.max(0, target.colorChromo.blue + tlr.nextInt(-30, 31)), 255);
         } else if(randomforCorlorB <= minMutateRate && randomforCorlorB > midMutateRate) {
-            target.color.blue = Math.min(Math.max(0, target.color.blue + tlr.nextInt(-10, 11)), 255);
+            target.colorChromo.blue = Math.min(Math.max(0, target.colorChromo.blue + tlr.nextInt(-10, 11)), 255);
         }
 
         double randomforCorlorA = tlr.nextDouble();
         if(randomforCorlorA <= maxMutateRate) {
-            target.color.alpha = tlr.nextInt(0, 256);
+            target.colorChromo.alpha = tlr.nextInt(0, 256);
         } else if(randomforCorlorA > maxMutateRate && randomforCorlorA <= midMutateRate) {
-            target.color.alpha = Math.min(Math.max(0, target.color.alpha + tlr.nextInt(-30, 31)), 255);
+            target.colorChromo.alpha = Math.min(Math.max(0, target.colorChromo.alpha + tlr.nextInt(-30, 31)), 255);
         } else if(randomforCorlorA <= minMutateRate && randomforCorlorA > midMutateRate) {
-            target.color.alpha = Math.min(Math.max(0, target.color.alpha + tlr.nextInt(-10, 11)), 255);
+            target.colorChromo.alpha = Math.min(Math.max(0, target.colorChromo.alpha + tlr.nextInt(-10, 11)), 255);
         }
         return target;
     }
@@ -165,18 +164,50 @@ public class Genotype {
         }
     }
 
-    class Color {
+    class ColorChromo {
         private int red;
         private int green;
         private int blue;
         private int alpha;
 
-        public Color() {
+        public ColorChromo() {
             this.red = tlr.nextInt(0, 256);
             this.green = tlr.nextInt(0, 256);
             this.blue = tlr.nextInt(0, 256);
             this.alpha = tlr.nextInt(0, 256);
 
+        }
+
+        public int getRed() {
+            return red;
+        }
+
+        public void setRed(int red) {
+            this.red = red;
+        }
+
+        public int getGreen() {
+            return green;
+        }
+
+        public void setGreen(int green) {
+            this.green = green;
+        }
+
+        public int getBlue() {
+            return blue;
+        }
+
+        public void setBlue(int blue) {
+            this.blue = blue;
+        }
+
+        public int getAlpha() {
+            return alpha;
+        }
+
+        public void setAlpha(int alpha) {
+            this.alpha = alpha;
         }
     }
 

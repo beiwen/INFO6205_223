@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Triangle extends Polygon {
     double maxMutateRate;
@@ -25,9 +24,19 @@ public class Triangle extends Polygon {
         this.xpoints[2] = gene.getThree().getVertical();
         this.ypoints[2] = gene.getThree().getHorizontal();
 
-        this.color = gene.getColor();
+        getColorFromGene(gene);
+        this.genotype = gene;
+        
     }
 
+    private void getColorFromGene(Genotype gene) {
+        float r = gene.getColorChromo().getRed();
+        float g = gene.getColorChromo().getGreen();
+        float b = gene.getColorChromo().getBlue();
+        float a = gene.getColorChromo().getAlpha();
+
+        this.color = new Color(r, g, b, a);
+    }
 
     private void mutate(Triangle parent) {
         //TODO
