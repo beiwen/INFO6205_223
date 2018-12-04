@@ -1,11 +1,13 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Triangle extends Polygon {
-    BufferedImage target;
 
+    BufferedImage target;
     double fitness;
 
     Genotype genotype;
@@ -69,13 +71,20 @@ public class Triangle extends Polygon {
     }
 
     public List<Triangle> reproduction(Triangle pair) {
-        //need to fix!!!
         List<Triangle> res = new ArrayList<>();
         List<Genotype> genes = pair.genotype.crossover(this.genotype);
         for (Genotype gene: genes) {
             res.add(new Triangle(gene, target));
         }
-        return res;
+        res.add(new Triangle(this.genotype, target));
+        res.add(new Triangle(pair.genotype, target));
+        Collections.sort(res, new Comparator<Triangle>() {
+            @Override
+            public int compare(Triangle tri1, Triangle tri2) {
+                return (int) (tri1.fitness - tri2.fitness);
+            }
+        });
+        return res.subList(0, 5);
     }
 
     public double getFitness() {

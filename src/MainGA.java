@@ -36,6 +36,7 @@ public class MainGA {
                     e.printStackTrace();
                 }
             }
+            System.out.println("Generation " + i + 1);
             canvas = canvas.genNextGeneration();
             i++;
         }
