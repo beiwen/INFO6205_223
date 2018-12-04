@@ -68,8 +68,8 @@ public class Triangle extends Polygon {
         return 1 / tmp;
     }
 
-    private List<Triangle> reproduction(Triangle pair) {
-        //TODO
+    public List<Triangle> reproduction(Triangle pair) {
+        //need to fix!!!
         List<Triangle> res = new ArrayList<>();
         List<Genotype> genes = pair.genotype.crossover(this.genotype);
         for (Genotype gene: genes) {

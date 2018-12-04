@@ -1,5 +1,6 @@
 import java.awt.image.BufferedImage;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Canvas {
     double mutateRate = 0.01;
@@ -25,8 +26,17 @@ public class Canvas {
         }
     }
 
-    public Canvas genNextGeneration(Canvas parent) {
-        //TODO
+    public Canvas genNextGeneration() {
+        //TODO, need to continue implementing!!!:
+        List<Triangle> selectedCandidates = selection(this.triangles);
+        for(int i = selectedCandidates.size() - 1; i >= 1; i-=2) {
+            ThreadLocalRandom tlr = ThreadLocalRandom.current();
+            int pairOneIndex = tlr.nextInt(0, i);
+            int pairTwoIndex = tlr.nextInt(0, i - 1);
+            Triangle pairOne =selectedCandidates.get(pairOneIndex);
+            Triangle pairTwo = selectedCandidates.get(pairTwoIndex);
+            List<Triangle> childrenTriangles = pairOne.reproduction(pairTwo);
+        }
         return this;
     }
 
@@ -35,8 +45,7 @@ public class Canvas {
         return 0;
     }
 
-
-    public Triangle[] selection(List<Triangle> triangles) {
+    private List<Triangle> selection(List<Triangle> triangles) {
         int numberOfSelected = (int)(triangles.size() * fractionForNextGeneration);
         PriorityQueue<Triangle> minHeap = new PriorityQueue<>(numberOfSelected, new MyComparator());
         for(Triangle triangle : triangles) {
@@ -50,7 +59,7 @@ public class Canvas {
             }
         }
 
-        return (Triangle[]) minHeap.toArray();
+        return Arrays.asList((Triangle[]) minHeap.toArray());
     }
 
     static class MyComparator implements Comparator<Triangle> {
