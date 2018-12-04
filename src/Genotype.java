@@ -84,7 +84,6 @@ public class Genotype {
             } else {
                 child.setColorChromo(pair.getColorChromo());
             }
-            child = mutation(child);
             children.add(child);
         }
         return children;
