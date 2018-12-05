@@ -8,7 +8,7 @@ public class Canvas {
     private final int width_one = 255;
     private final int height_one = 255;
     private BufferedImage target;
-    private final double fractionForNextGeneration = 0;
+    private final double fractionForNextGeneration = 0.1;
     double matchRate;
     List<Triangle> triangles;
     BufferedImage bi;
@@ -23,7 +23,7 @@ public class Canvas {
         } else {
             this.triangles = candidates;
         }
-        bi = new BufferedImage(256, 256, BufferedImage.TYPE_INT_ARGB);
+        this.bi = new BufferedImage(256, 256, BufferedImage.TYPE_INT_ARGB);
         draw();
         updateMatch();
     }
@@ -34,13 +34,13 @@ public class Canvas {
         for (int x = 0; x < 256; x++) {
             for (int y = 0; y < 256; y++) {
                 int tarColor = target.getRGB(x, y);
-                int tarR = (tarColor & 0xFF) >> 16;
-                int tarG = (tarColor & 0xFF) >> 8;
+                int tarR = (tarColor & 0xFF0000) >> 16;
+                int tarG = (tarColor & 0xFF00) >> 8;
                 int tarB = tarColor & 0xFF;
 
                 int thisColor = bi.getRGB(x, y);
-                int r = (thisColor & 0xFF) >> 16;
-                int g = (thisColor & 0xFF) >> 8;
+                int r = (thisColor & 0xFF0000) >> 16;
+                int g = (thisColor & 0xFF00) >> 8;
                 int b = thisColor & 0xFF;
 
                 double tmp = Math.pow((r - tarR), 2) + Math.pow((g - tarG), 2) + Math.pow((b - tarB), 2);

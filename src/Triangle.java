@@ -62,8 +62,8 @@ public class Triangle extends Polygon {
 //        int tarB = tarColor & 0xFF;
 
 //        int tarA = (tarColor & 0xFF) >> 24;
-        int tarR = (tarColor & 0xFF) >> 16;
-        int tarG = (tarColor & 0xFF) >> 8;
+        int tarR = (tarColor & 0xFF0000) >> 16;
+        int tarG = (tarColor & 0xFF00) >> 8;
         int tarB = tarColor & 0xFF;
 
 //        int a = genotype.getColorChromo().getAlpha();

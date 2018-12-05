@@ -90,108 +90,93 @@ public class Genotype {
     }
 
     // To do, get called by crossover
+    private boolean mutateOrNot(double rate) {
+        return rate > ThreadLocalRandom.current().nextDouble();
+    }
+
     public Genotype mutation(Genotype target) {
-
-        double randomforCoordinateOne = tlr.nextDouble();
-        if(randomforCoordinateOne <= maxMutateRate) {
-           target.one.horizontal = tlr.nextInt(0, 256);
-           target.one.vertical = tlr.nextInt(0, 256);
+        Genotype res = new Genotype(255, 255);
+        if(mutateOrNot(maxMutateRate)) {
+           res.one.horizontal = tlr.nextInt(0, 256);
+           res.one.vertical = tlr.nextInt(0, 256);
         }
-        randomforCoordinateOne = tlr.nextDouble();
-        if(randomforCoordinateOne <= midMutateRate) {
-           target.one.horizontal = Math.min(Math.max(0, target.one.horizontal + tlr.nextInt(-15, 16)), 255);
-           target.one.vertical = Math.min(Math.max(0, target.one.vertical + tlr.nextInt(-15, 16)), 255);
+        if(mutateOrNot(midMutateRate)) {
+           res.one.horizontal = Math.min(Math.max(0, target.one.horizontal + tlr.nextInt(-15, 16)), 255);
+           res.one.vertical = Math.min(Math.max(0, target.one.vertical + tlr.nextInt(-15, 16)), 255);
         }
-        randomforCoordinateOne = tlr.nextDouble();
-        if(randomforCoordinateOne <= minMutateRate) {
-           target.one.horizontal = Math.min(Math.max(0, target.one.horizontal + tlr.nextInt(-3, 4)), 255);
-           target.one.vertical = Math.min(Math.max(0, target.one.vertical + tlr.nextInt(-3, 4)), 255);
+        if(mutateOrNot(minMutateRate)) {
+           res.one.horizontal = Math.min(Math.max(0, target.one.horizontal + tlr.nextInt(-3, 4)), 255);
+           res.one.vertical = Math.min(Math.max(0, target.one.vertical + tlr.nextInt(-3, 4)), 255);
         }
 
-        double randomforCoordinateTwo = tlr.nextDouble();
-        if(randomforCoordinateTwo <= maxMutateRate) {
-           target.two.horizontal = tlr.nextInt(0, 256);
-           target.two.vertical = tlr.nextInt(0, 256);
+        if(mutateOrNot(maxMutateRate)) {
+           res.two.horizontal = tlr.nextInt(0, 256);
+           res.two.vertical = tlr.nextInt(0, 256);
         }
-        randomforCoordinateTwo = tlr.nextDouble();
-        if(randomforCoordinateTwo <= midMutateRate) {
-           target.two.horizontal = Math.min(Math.max(0, target.two.horizontal + tlr.nextInt(-15, 16)), 255);
-           target.two.vertical = Math.min(Math.max(0, target.two.vertical + tlr.nextInt(-15, 16)), 255);
+        if(mutateOrNot(midMutateRate)) {
+           res.two.horizontal = Math.min(Math.max(0, target.two.horizontal + tlr.nextInt(-15, 16)), 255);
+           res.two.vertical = Math.min(Math.max(0, target.two.vertical + tlr.nextInt(-15, 16)), 255);
         }
-        randomforCoordinateTwo = tlr.nextDouble();
-        if(randomforCoordinateTwo <= minMutateRate) {
-           target.two.horizontal = Math.min(Math.max(0, target.two.horizontal + tlr.nextInt(-3, 4)), 255);
-           target.two.vertical = Math.min(Math.max(0, target.two.vertical + tlr.nextInt(-3, 4)), 255);
+        if(mutateOrNot(minMutateRate)) {
+           res.two.horizontal = Math.min(Math.max(0, target.two.horizontal + tlr.nextInt(-3, 4)), 255);
+           res.two.vertical = Math.min(Math.max(0, target.two.vertical + tlr.nextInt(-3, 4)), 255);
         }
 
-        double randomforCoordinateThree = tlr.nextDouble();
-        if(randomforCoordinateThree <= maxMutateRate) {
-           target.three.horizontal = tlr.nextInt(0, 256);
-           target.three.vertical = tlr.nextInt(0, 256);
+        if(mutateOrNot(maxMutateRate)) {
+           res.three.horizontal = tlr.nextInt(0, 256);
+           res.three.vertical = tlr.nextInt(0, 256);
         }
-        randomforCoordinateThree = tlr.nextDouble();
-        if(randomforCoordinateThree <= midMutateRate) {
-           target.three.horizontal = Math.min(Math.max(0, target.three.horizontal + tlr.nextInt(-15, 16)), 255);
-           target.three.vertical = Math.min(Math.max(0, target.three.vertical + tlr.nextInt(-15, 16)), 255);
+        if(mutateOrNot(midMutateRate)) {
+           res.three.horizontal = Math.min(Math.max(0, target.three.horizontal + tlr.nextInt(-15, 16)), 255);
+           res.three.vertical = Math.min(Math.max(0, target.three.vertical + tlr.nextInt(-15, 16)), 255);
         }
-        randomforCoordinateThree = tlr.nextDouble();
-        if(randomforCoordinateThree <= minMutateRate) {
-           target.three.horizontal = Math.min(Math.max(0, target.three.horizontal + tlr.nextInt(-3, 4)), 255);
-           target.three.vertical = Math.min(Math.max(0, target.three.vertical + tlr.nextInt(-3, 4)), 255);
+        if(mutateOrNot(minMutateRate)) {
+           res.three.horizontal = Math.min(Math.max(0, target.three.horizontal + tlr.nextInt(-3, 4)), 255);
+           res.three.vertical = Math.min(Math.max(0, target.three.vertical + tlr.nextInt(-3, 4)), 255);
         }
 
         // corlor
-        double randomforCorlorR = tlr.nextDouble();
-        if(randomforCorlorR <= maxMutateRate) {
-            target.colorChromo.red = tlr.nextInt(0, 256);
+        if(mutateOrNot(maxMutateRate)) {
+            res.colorChromo.red = tlr.nextInt(0, 256);
         }
-        randomforCorlorR = tlr.nextDouble();
-        if(randomforCorlorR <= midMutateRate) {
-            target.colorChromo.red = Math.min(Math.max(0, target.colorChromo.red + tlr.nextInt(-30, 31)), 255);
+        if(mutateOrNot(midMutateRate)) {
+            res.colorChromo.red = Math.min(Math.max(0, target.colorChromo.red + tlr.nextInt(-30, 31)), 255);
         }
-        randomforCorlorR = tlr.nextDouble();
-        if(randomforCorlorR <= minMutateRate) {
-            target.colorChromo.red = Math.min(Math.max(0, target.colorChromo.red + tlr.nextInt(-10, 11)), 255);
+        if(mutateOrNot(minMutateRate)) {
+            res.colorChromo.red = Math.min(Math.max(0, target.colorChromo.red + tlr.nextInt(-10, 11)), 255);
         }
 
-        double randomforCorlorG = tlr.nextDouble();
-        if(randomforCorlorG <= maxMutateRate) {
-            target.colorChromo.green = tlr.nextInt(0, 256);
+        if(mutateOrNot(maxMutateRate)) {
+            res.colorChromo.green = tlr.nextInt(0, 256);
         }
-        randomforCorlorG = tlr.nextDouble();
-        if(randomforCorlorG <= midMutateRate) {
-            target.colorChromo.green = Math.min(Math.max(0, target.colorChromo.green + tlr.nextInt(-30, 31)), 255);
+        if(mutateOrNot(midMutateRate)) {
+            res.colorChromo.green = Math.min(Math.max(0, target.colorChromo.green + tlr.nextInt(-30, 31)), 255);
         }
-        randomforCorlorG = tlr.nextDouble();
-        if(randomforCorlorG <= minMutateRate) {
-            target.colorChromo.green = Math.min(Math.max(0, target.colorChromo.green + tlr.nextInt(-10, 11)), 255);
+        if(mutateOrNot(minMutateRate)) {
+            res.colorChromo.green = Math.min(Math.max(0, target.colorChromo.green + tlr.nextInt(-10, 11)), 255);
         }
 
-        double randomforCorlorB = tlr.nextDouble();
-        if(randomforCorlorB <= maxMutateRate) {
-            target.colorChromo.blue = tlr.nextInt(0, 256);
+        if(mutateOrNot(maxMutateRate)) {
+            res.colorChromo.blue = tlr.nextInt(0, 256);
         }
-        randomforCorlorB = tlr.nextDouble();
-        if(randomforCorlorB <= midMutateRate) {
-            target.colorChromo.blue = Math.min(Math.max(0, target.colorChromo.blue + tlr.nextInt(-30, 31)), 255);
+        if(mutateOrNot(midMutateRate)) {
+            res.colorChromo.blue = Math.min(Math.max(0, target.colorChromo.blue + tlr.nextInt(-30, 31)), 255);
         }
-        randomforCorlorB = tlr.nextDouble();
-        if(randomforCorlorB <= minMutateRate) {
-            target.colorChromo.blue = Math.min(Math.max(0, target.colorChromo.blue + tlr.nextInt(-10, 11)), 255);
+        if(mutateOrNot(minMutateRate)) {
+            res.colorChromo.blue = Math.min(Math.max(0, target.colorChromo.blue + tlr.nextInt(-10, 11)), 255);
         }
 
-        double randomforCorlorA = tlr.nextDouble();
-        if(randomforCorlorA <= midMutateRate) {
-            target.colorChromo.alpha = tlr.nextInt(95, 116);
+        if(mutateOrNot(midMutateRate  )) {
+            res.colorChromo.alpha = tlr.nextInt(95, 116);
         }
-        return target;
+        return res;
     }
 
 
 
     class CoordinateChromo {
-        private int vertical;
-        private int horizontal;
+        int vertical;
+        int horizontal;
 
         public CoordinateChromo(int ver, int hor) {
             this.vertical = ver;
