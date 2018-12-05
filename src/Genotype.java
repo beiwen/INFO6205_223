@@ -96,10 +96,14 @@ public class Genotype {
         if(randomforCoordinateOne <= maxMutateRate) {
            target.one.horizontal = tlr.nextInt(0, 256);
            target.one.vertical = tlr.nextInt(0, 256);
-        } else if(randomforCoordinateOne > maxMutateRate && randomforCoordinateOne <= midMutateRate) {
+        }
+        randomforCoordinateOne = tlr.nextDouble();
+        if(randomforCoordinateOne <= midMutateRate) {
            target.one.horizontal = Math.min(Math.max(0, target.one.horizontal + tlr.nextInt(-15, 16)), 255);
            target.one.vertical = Math.min(Math.max(0, target.one.vertical + tlr.nextInt(-15, 16)), 255);
-        } else if(randomforCoordinateOne <= minMutateRate && randomforCoordinateOne > midMutateRate) {
+        }
+       randomforCoordinateOne = tlr.nextDouble();
+        if(randomforCoordinateOne <= minMutateRate) {
            target.one.horizontal = Math.min(Math.max(0, target.one.horizontal + tlr.nextInt(-3, 4)), 255);
            target.one.vertical = Math.min(Math.max(0, target.one.vertical + tlr.nextInt(-3, 4)), 255);
         }
@@ -108,10 +112,14 @@ public class Genotype {
         if(randomforCoordinateTwo <= maxMutateRate) {
            target.two.horizontal = tlr.nextInt(0, 256);
            target.two.vertical = tlr.nextInt(0, 256);
-        } else if(randomforCoordinateTwo > maxMutateRate && randomforCoordinateTwo <= midMutateRate) {
+        }
+        randomforCoordinateTwo = tlr.nextDouble();
+        if(randomforCoordinateTwo <= midMutateRate) {
            target.two.horizontal = Math.min(Math.max(0, target.two.horizontal + tlr.nextInt(-15, 16)), 255);
            target.two.vertical = Math.min(Math.max(0, target.two.vertical + tlr.nextInt(-15, 16)), 255);
-        } else if(randomforCoordinateTwo <= minMutateRate && randomforCoordinateTwo > midMutateRate) {
+        }
+        randomforCoordinateTwo = tlr.nextDouble();
+        if(randomforCoordinateTwo <= minMutateRate) {
            target.two.horizontal = Math.min(Math.max(0, target.two.horizontal + tlr.nextInt(-3, 4)), 255);
            target.two.vertical = Math.min(Math.max(0, target.two.vertical + tlr.nextInt(-3, 4)), 255);
         }
@@ -120,10 +128,14 @@ public class Genotype {
         if(randomforCoordinateThree <= maxMutateRate) {
            target.three.horizontal = tlr.nextInt(0, 256);
            target.three.vertical = tlr.nextInt(0, 256);
-        } else if(randomforCoordinateThree > maxMutateRate && randomforCoordinateThree <= midMutateRate) {
+        }
+        randomforCoordinateThree = tlr.nextDouble();
+        if(randomforCoordinateThree <= midMutateRate) {
            target.three.horizontal = Math.min(Math.max(0, target.three.horizontal + tlr.nextInt(-15, 16)), 255);
            target.three.vertical = Math.min(Math.max(0, target.three.vertical + tlr.nextInt(-15, 16)), 255);
-        } else if(randomforCoordinateThree <= minMutateRate && randomforCoordinateThree > midMutateRate) {
+        }
+        randomforCoordinateThree = tlr.nextDouble();
+        if(randomforCoordinateThree <= minMutateRate) {
            target.three.horizontal = Math.min(Math.max(0, target.three.horizontal + tlr.nextInt(-3, 4)), 255);
            target.three.vertical = Math.min(Math.max(0, target.three.vertical + tlr.nextInt(-3, 4)), 255);
         }
@@ -132,33 +144,45 @@ public class Genotype {
         double randomforCorlorR = tlr.nextDouble();
         if(randomforCorlorR <= maxMutateRate) {
             target.colorChromo.red = tlr.nextInt(0, 256);
-        } else if(randomforCorlorR > maxMutateRate && randomforCorlorR <= midMutateRate) {
+        }
+        randomforCorlorR = tlr.nextDouble();
+        if(randomforCorlorR <= midMutateRate) {
             target.colorChromo.red = Math.min(Math.max(0, target.colorChromo.red + tlr.nextInt(-30, 31)), 255);
-        } else if(randomforCorlorR <= minMutateRate && randomforCorlorR > midMutateRate) {
+        }
+        randomforCorlorR = tlr.nextDouble();
+        if(randomforCorlorR <= minMutateRate) {
             target.colorChromo.red = Math.min(Math.max(0, target.colorChromo.red + tlr.nextInt(-10, 11)), 255);
         }
 
         double randomforCorlorG = tlr.nextDouble();
         if(randomforCorlorG <= maxMutateRate) {
             target.colorChromo.green = tlr.nextInt(0, 256);
-        } else if(randomforCorlorG > maxMutateRate && randomforCorlorG <= midMutateRate) {
+        }
+        randomforCorlorG = tlr.nextDouble();
+        if(randomforCorlorG <= midMutateRate) {
             target.colorChromo.green = Math.min(Math.max(0, target.colorChromo.green + tlr.nextInt(-30, 31)), 255);
-        } else if(randomforCorlorG <= minMutateRate && randomforCorlorG > midMutateRate) {
+        }
+        randomforCorlorG = tlr.nextDouble();
+        if(randomforCorlorG <= minMutateRate) {
             target.colorChromo.green = Math.min(Math.max(0, target.colorChromo.green + tlr.nextInt(-10, 11)), 255);
         }
 
         double randomforCorlorB = tlr.nextDouble();
         if(randomforCorlorB <= maxMutateRate) {
             target.colorChromo.blue = tlr.nextInt(0, 256);
-        } else if(randomforCorlorB > maxMutateRate && randomforCorlorB <= midMutateRate) {
+        }
+        randomforCorlorB = tlr.nextDouble();
+        if(randomforCorlorB <= midMutateRate) {
             target.colorChromo.blue = Math.min(Math.max(0, target.colorChromo.blue + tlr.nextInt(-30, 31)), 255);
-        } else if(randomforCorlorB <= minMutateRate && randomforCorlorB > midMutateRate) {
+        }
+        randomforCorlorB = tlr.nextDouble();
+        if(randomforCorlorB <= minMutateRate) {
             target.colorChromo.blue = Math.min(Math.max(0, target.colorChromo.blue + tlr.nextInt(-10, 11)), 255);
         }
 
         double randomforCorlorA = tlr.nextDouble();
         if(randomforCorlorA <= midMutateRate) {
-            target.colorChromo.alpha = tlr.nextInt(95, 115);
+            target.colorChromo.alpha = tlr.nextInt(95, 116);
         }
         return target;
     }
@@ -202,7 +226,7 @@ public class Genotype {
             this.red = tlr.nextInt(0, 256);
             this.green = tlr.nextInt(0, 256);
             this.blue = tlr.nextInt(0, 256);
-            this.alpha = tlr.nextInt(95, 116);
+            this.alpha = tlr.nextInt(0, 256);
 
         }
 
