@@ -42,6 +42,8 @@ public class MainGA {
             Canvas next = canvas.genNextGeneration();
             if (next.matchRate > canvas.matchRate) {
                 canvas = next;
+            } else {
+                canvas.updateMatch();
             }
 //            canvas = next;
             i++;

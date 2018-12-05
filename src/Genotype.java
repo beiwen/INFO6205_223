@@ -202,7 +202,7 @@ public class Genotype {
             this.red = tlr.nextInt(0, 256);
             this.green = tlr.nextInt(0, 256);
             this.blue = tlr.nextInt(0, 256);
-            this.alpha = tlr.nextInt(0, 256);
+            this.alpha = tlr.nextInt(95, 116);
 
         }
 

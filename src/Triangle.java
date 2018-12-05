@@ -18,14 +18,14 @@ public class Triangle extends Polygon {
         this.xpoints = new int[3];
         this.ypoints = new int[3];
 
-        this.xpoints[0] = gene.getOne().getVertical();
-        this.ypoints[0] = gene.getOne().getHorizontal();
+        this.xpoints[0] = gene.getOne().getHorizontal();
+        this.ypoints[0] = gene.getOne().getVertical();
 
-        this.xpoints[1] = gene.getTwo().getVertical();
-        this.ypoints[1] = gene.getTwo().getHorizontal();
+        this.xpoints[1] = gene.getTwo().getHorizontal();
+        this.ypoints[1] = gene.getTwo().getVertical();
 
-        this.xpoints[2] = gene.getThree().getVertical();
-        this.ypoints[2] = gene.getThree().getHorizontal();
+        this.xpoints[2] = gene.getThree().getHorizontal();
+        this.ypoints[2] = gene.getThree().getVertical();
 
         getColorFromGene(gene);
         this.genotype = gene;
@@ -51,14 +51,19 @@ public class Triangle extends Polygon {
                 }
             }
         }
-        return 1 / res;
+        return -res;
     }
 
     private double calFitHelper(BufferedImage target, int x, int y) {
         int tarColor = target.getRGB(x, y);
-        int tarA = (tarColor >> 24) & 0xFF;
-        int tarR = (tarColor >> 16) & 0xFF;
-        int tarG = (tarColor >> 8) & 0xFF;
+//        int tarA = (tarColor >> 24) & 0xFF;
+//        int tarR = (tarColor >> 16) & 0xFF;
+//        int tarG = (tarColor >> 8) & 0xFF;
+//        int tarB = tarColor & 0xFF;
+
+//        int tarA = (tarColor & 0xFF) >> 24;
+        int tarR = (tarColor & 0xFF) >> 16;
+        int tarG = (tarColor & 0xFF) >> 8;
         int tarB = tarColor & 0xFF;
 
 //        int a = genotype.getColorChromo().getAlpha();
@@ -89,7 +94,10 @@ public class Triangle extends Polygon {
         Collections.sort(res, new Comparator<Triangle>() {
             @Override
             public int compare(Triangle tri1, Triangle tri2) {
-                return (int) (tri2.fitness - tri1.fitness);
+                if (tri1.fitness == tri2.fitness) {
+                    return 0;
+                }
+                return tri2.fitness < tri1.fitness ? -1 : 1;
             }
         });
         return res.subList(0, 2);
