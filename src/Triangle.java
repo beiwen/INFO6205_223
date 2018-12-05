@@ -1,41 +1,114 @@
 import java.awt.*;
-import java.util.concurrent.ThreadLocalRandom;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class Triangle extends Polygon {
-    double maxMutateRate;
-    double midMutateRate;
-    double minMutateRate;
 
-    Genotype genotype;
+    BufferedImage target;
+
+    double fitness;
+    private Genotype genotype;
     Color color;
-    Graphics2D gr2d;
 
-
-    public Triangle(Genotype gene) {
+    public Triangle(Genotype gene, BufferedImage target) {
         this.npoints = 3;
         this.xpoints = new int[3];
         this.ypoints = new int[3];
 
-        this.xpoints[0] = gene.getOne().getVertical();
-        this.ypoints[0] = gene.getOne().getHorizontal();
+        this.xpoints[0] = gene.getOne().getHorizontal();
+        this.ypoints[0] = gene.getOne().getVertical();
 
-        this.xpoints[1] = gene.getTwo().getVertical();
-        this.ypoints[1] = gene.getTwo().getHorizontal();
+        this.xpoints[1] = gene.getTwo().getHorizontal();
+        this.ypoints[1] = gene.getTwo().getVertical();
 
-        this.xpoints[2] = gene.getThree().getVertical();
-        this.ypoints[2] = gene.getThree().getHorizontal();
+        this.xpoints[2] = gene.getThree().getHorizontal();
+        this.ypoints[2] = gene.getThree().getVertical();
 
-        this.color = gene.getColor();
+        getColorFromGene(gene);
+        this.genotype = gene;
+        this.target = target;
+        fitness = calFitness(target);
     }
 
+    private void getColorFromGene(Genotype gene) {
+        float r = (float) (gene.getColorChromo().getRed() / 255.0);
+        float g = (float) (gene.getColorChromo().getGreen() / 255.0);
+        float b = (float) (gene.getColorChromo().getBlue() / 255.0);
+        float a = (float) (gene.getColorChromo().getAlpha() / 255.0);
 
-    private void mutate(Triangle parent) {
-        //TODO
+        this.color = new Color(r, g, b, a);
     }
 
-    private Graphics2D draw() {
-        //TODO
-        return this.gr2d;
+    public double calFitness(BufferedImage target) {
+        double res = 0;
+        for (int x = 0; x < 256; x++) {
+            for (int y = 0; y < 256; y++) {
+                if (this.contains(x, y)) {
+                    res += calFitHelper(target, x, y);
+                }
+            }
+        }
+        return -res;
+    }
+
+    private double calFitHelper(BufferedImage target, int x, int y) {
+        int tarColor = target.getRGB(x, y);
+//        int tarA = (tarColor >> 24) & 0xFF;
+//        int tarR = (tarColor >> 16) & 0xFF;
+//        int tarG = (tarColor >> 8) & 0xFF;
+//        int tarB = tarColor & 0xFF;
+
+//        int tarA = (tarColor & 0xFF) >> 24;
+        int tarR = (tarColor & 0xFF0000) >> 16;
+        int tarG = (tarColor & 0xFF00) >> 8;
+        int tarB = tarColor & 0xFF;
+
+//        int a = genotype.getColorChromo().getAlpha();
+        int r = genotype.getColorChromo().getRed();
+        int g = genotype.getColorChromo().getGreen();
+        int b = genotype.getColorChromo().getBlue();
+
+        double tmp = Math.pow((r - tarR), 2) + Math.pow((g - tarG), 2) + Math.pow((b - tarB), 2);
+        return tmp;
+    }
+
+    public List<Triangle> reproduction(Triangle pair) {
+        List<Triangle> res = new ArrayList<>();
+
+        if (pair == null) {
+            Genotype child = genotype.mutation(genotype);
+            res.add(new Triangle(child, target));
+            return res;
+        }
+
+        List<Genotype> genes = pair.genotype.crossover(this.genotype);
+        for (Genotype gene: genes) {
+            res.add(new Triangle(gene, target));
+        }
+
+        res.add(new Triangle(this.genotype, target));
+        res.add(new Triangle(pair.genotype, target));
+        Collections.sort(res, new Comparator<Triangle>() {
+            @Override
+            public int compare(Triangle tri1, Triangle tri2) {
+                if (tri1.fitness == tri2.fitness) {
+                    return 0;
+                }
+                return tri2.fitness < tri1.fitness ? -1 : 1;
+            }
+        });
+        return res.subList(0, 2);
+    }
+
+    public double getFitness() {
+        return fitness;
+    }
+
+    public void setFitness(double fitness) {
+        this.fitness = fitness;
     }
 
 }
