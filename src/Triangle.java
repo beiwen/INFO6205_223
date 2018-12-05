@@ -89,7 +89,7 @@ public class Triangle extends Polygon {
         Collections.sort(res, new Comparator<Triangle>() {
             @Override
             public int compare(Triangle tri1, Triangle tri2) {
-                return (int) (tri1.fitness - tri2.fitness);
+                return (int) (tri2.fitness - tri1.fitness);
             }
         });
         return res.subList(0, 2);

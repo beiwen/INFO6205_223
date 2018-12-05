@@ -9,7 +9,7 @@ public class Genotype {
     private final double maxMutateRate = 0.08;
     private final double midMutateRate = 0.3;
     private final double minMutateRate = 0.8;
-    private final int fecundityOfmating = 4;
+    private final int fecundityOfmating = 2;
     private ThreadLocalRandom tlr = ThreadLocalRandom.current();
 
     public Genotype(int width, int height){

@@ -6,7 +6,7 @@ public class Canvas {
     private final int width_one = 255;
     private final int height_one = 255;
     private BufferedImage target;
-    private final double fractionForNextGeneration = 0.5;
+    private final double fractionForNextGeneration = 0.1;
     double matchRate;
     List<Triangle> triangles;
 
@@ -27,21 +27,21 @@ public class Canvas {
     }
 
     public Canvas genNextGeneration() {
-        List<Triangle> selectedCandidates = selection(this.triangles);
+        List<List<Triangle>> selectedCandidates = selection(this.triangles);
         List<Triangle> nextCandidates = new ArrayList<>();
-        while(!selectedCandidates.isEmpty()) {
+        for(Triangle triangle :selectedCandidates.get(0)) {
+            List<Triangle> mutationChildren = triangle.reproduction(null);
+            nextCandidates.addAll(mutationChildren);
+        }
+        List<Triangle> trianglesForCrossover = selectedCandidates.get(1);
+        while(!trianglesForCrossover.isEmpty()) {
             ThreadLocalRandom tlr = ThreadLocalRandom.current();
             int pairOneIndex = 0;
-            int pairTwoIndex;
-            if(selectedCandidates.size() == 2) {
-                pairTwoIndex = 1;
-            } else {
-                pairTwoIndex = tlr.nextInt(1, selectedCandidates.size());
-            }
-            Triangle pairTwo = selectedCandidates.remove(pairTwoIndex);
-            Triangle pairOne =selectedCandidates.remove(pairOneIndex);
-            List<Triangle> childrenTriangles = pairOne.reproduction(pairTwo);
-            nextCandidates.addAll(childrenTriangles);
+            int pairTwoIndex = tlr.nextInt(1, trianglesForCrossover.size());
+            Triangle pairTwo = trianglesForCrossover.remove(pairTwoIndex);
+            Triangle pairOne = trianglesForCrossover.remove(pairOneIndex);
+            List<Triangle> crossoverChildren = pairOne.reproduction(pairTwo);
+            nextCandidates.addAll(crossoverChildren);
         }
         Canvas newCanvas = new Canvas(target, nextCandidates);
         return newCanvas;
@@ -52,21 +52,27 @@ public class Canvas {
         return 0;
     }
 
-    private List<Triangle> selection(List<Triangle> triangles) {
-        int numberOfSelected = (int)(triangles.size() * fractionForNextGeneration);
-        PriorityQueue<Triangle> minHeap = new PriorityQueue<>(numberOfSelected, new MyComparator());
+    private List<List<Triangle>> selection(List<Triangle> triangles) {
+        List<List<Triangle>> selectionResult = new ArrayList<>(2);
+        int numberOfCrossover = (int)(triangles.size() * fractionForNextGeneration);
+        PriorityQueue<Triangle> partForMutationPQ = new PriorityQueue<>(triangles.size() - numberOfCrossover, new MyComparator());
+        List<Triangle> partForCrossover = new LinkedList<>();
         for(Triangle triangle : triangles) {
-            if(minHeap.size() != numberOfSelected) {
-                minHeap.offer(triangle);
+            if(partForMutationPQ.size() < triangles.size() - numberOfCrossover) {
+                partForMutationPQ.offer(triangle);
             } else {
-                if(triangle.getFitness() > minHeap.peek().getFitness()) {
-                    minHeap.poll();
-                    minHeap.offer(triangle);
+                if(triangle.getFitness() > partForMutationPQ.peek().getFitness()) {
+                    partForCrossover.add(partForMutationPQ.poll());
+                    partForMutationPQ.offer(triangle);
+                } else {
+                    partForCrossover.add(triangle);
                 }
             }
         }
-
-        return new LinkedList<>(Arrays.asList((minHeap.toArray(new Triangle[minHeap.size()]))));
+        List<Triangle> partForMuatation = new  LinkedList<>(Arrays.asList((partForMutationPQ.toArray(new Triangle[partForMutationPQ.size()]))));
+        selectionResult.add(partForMuatation);
+        selectionResult.add(partForCrossover);
+        return selectionResult;
     }
 
     static class MyComparator implements Comparator<Triangle> {

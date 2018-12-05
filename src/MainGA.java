@@ -38,11 +38,12 @@ public class MainGA {
                     e.printStackTrace();
                 }
             }
-            System.out.println("Generation " + (i + 1));
+            System.out.println("Generation " + (i + 1) + " " + canvas.matchRate);
             Canvas next = canvas.genNextGeneration();
             if (next.matchRate > canvas.matchRate) {
                 canvas = next;
             }
+//            canvas = next;
             i++;
         }
     }
