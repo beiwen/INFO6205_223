@@ -8,7 +8,7 @@ public class Canvas {
     private final int width_one = 255;
     private final int height_one = 255;
     private BufferedImage target;
-    private final double fractionForNextGeneration = 0.1;
+    private final double fractionForNextGeneration = 0;
     double matchRate;
     List<Triangle> triangles;
     BufferedImage bi;
@@ -64,7 +64,11 @@ public class Canvas {
         List<Triangle> nextCandidates = new ArrayList<>();
         for(Triangle triangle: selectedCandidates.get(0)) {
             List<Triangle> mutationChildren = triangle.reproduction(null);
-            nextCandidates.addAll(mutationChildren);
+            if(mutationChildren == null) {
+                nextCandidates.add(triangle);
+            } else {
+                nextCandidates.addAll(mutationChildren);
+            }
         }
         List<Triangle> trianglesForCrossover = selectedCandidates.get(1);
         while(!trianglesForCrossover.isEmpty()) {

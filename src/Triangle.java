@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Triangle extends Polygon {
 
@@ -12,6 +13,7 @@ public class Triangle extends Polygon {
     double fitness;
     private Genotype genotype;
     Color color;
+    private final double mutateRate = 0.01;
 
     public Triangle(Genotype gene, BufferedImage target) {
         this.npoints = 3;
@@ -78,12 +80,20 @@ public class Triangle extends Polygon {
     public List<Triangle> reproduction(Triangle pair) {
         List<Triangle> res = new ArrayList<>();
 
+        // mutation
         if (pair == null) {
-            Genotype child = genotype.mutation(genotype);
-            res.add(new Triangle(child, target));
-            return res;
+            ThreadLocalRandom tlr = ThreadLocalRandom.current();
+            double mutationOrNot = tlr.nextDouble();
+            if(mutationOrNot < mutateRate) {
+                Genotype mutationChild = this.genotype.mutation(this.genotype);
+                res.add(new Triangle(mutationChild, target));
+                return res;
+            } else {
+                return null;
+            }
         }
 
+        // crossover
         List<Genotype> genes = pair.genotype.crossover(this.genotype);
         for (Genotype gene: genes) {
             res.add(new Triangle(gene, target));
