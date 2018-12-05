@@ -22,14 +22,14 @@ public class MainGA {
         int i = 0;
 
         while (true) {
-            if (i % 1024 == 0) {
-                BufferedImage output = new BufferedImage(256, 256, BufferedImage.TYPE_INT_ARGB);
+            if (i % 1023 == 0) {
+                BufferedImage output = canvas.bi;
                 FileOutputStream pngOutPut = new FileOutputStream("res_generation_" + (i + 1) + ".png");
-                for (Triangle trg: canvas.triangles) {
-                    Graphics2D g2d = (Graphics2D) output.getGraphics();
-                    g2d.setColor(trg.color);
-                    g2d.fillPolygon(trg);
-                }
+//                for (Triangle trg: canvas.triangles) {
+//                    Graphics2D g2d = (Graphics2D) output.getGraphics();
+//                    g2d.setColor(trg.color);
+//                    g2d.fillPolygon(trg);
+//                }
                 try {
                     ImageIO.write(output, "png", pngOutPut);
                     pngOutPut.flush();
@@ -38,12 +38,11 @@ public class MainGA {
                     e.printStackTrace();
                 }
             }
-            System.out.println("Generation " + (i + 1) + " " + canvas.matchRate);
             Canvas next = canvas.genNextGeneration();
+            System.out.println("Generation " + (i + 1) + " " + canvas.matchRate + " " + next.matchRate);
+
             if (next.matchRate > canvas.matchRate) {
                 canvas = next;
-            } else {
-                canvas.updateMatch();
             }
 //            canvas = next;
             i++;

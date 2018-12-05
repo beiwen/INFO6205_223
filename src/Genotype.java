@@ -102,7 +102,7 @@ public class Genotype {
            target.one.horizontal = Math.min(Math.max(0, target.one.horizontal + tlr.nextInt(-15, 16)), 255);
            target.one.vertical = Math.min(Math.max(0, target.one.vertical + tlr.nextInt(-15, 16)), 255);
         }
-       randomforCoordinateOne = tlr.nextDouble();
+        randomforCoordinateOne = tlr.nextDouble();
         if(randomforCoordinateOne <= minMutateRate) {
            target.one.horizontal = Math.min(Math.max(0, target.one.horizontal + tlr.nextInt(-3, 4)), 255);
            target.one.vertical = Math.min(Math.max(0, target.one.vertical + tlr.nextInt(-3, 4)), 255);
