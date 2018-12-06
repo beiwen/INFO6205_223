@@ -88,7 +88,7 @@ public class Canvas {
         return 0;
     }
 
-    private List<List<Triangle>> selection(List<Triangle> triangles) {
+    public List<List<Triangle>> selection(List<Triangle> triangles) {
         List<List<Triangle>> selectionResult = new ArrayList<>(2);
         int numberOfCrossover = (int)(triangles.size() * fractionForNextGeneration);
         PriorityQueue<Triangle> partForMutationPQ = new PriorityQueue<>(triangles.size() - numberOfCrossover, new MyComparator());
