@@ -1,3 +1,5 @@
+package main;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -25,7 +27,7 @@ public class MainGA {
             if (i % 1023 == 0) {
                 BufferedImage output = canvas.bi;
                 FileOutputStream pngOutPut = new FileOutputStream("res_generation_" + (i + 1) + ".png");
-//                for (Triangle trg: canvas.triangles) {
+//                for (main.Triangle trg: canvas.triangles) {
 //                    Graphics2D g2d = (Graphics2D) output.getGraphics();
 //                    g2d.setColor(trg.color);
 //                    g2d.fillPolygon(trg);
