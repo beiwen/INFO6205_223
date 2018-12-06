@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Canvas {
-    private final int width_one = 255;
-    private final int height_one = 255;
     private BufferedImage target;
-    private final double fractionForNextGeneration = 0;
     private double matchRate;
     private List<Triangle> triangles;
-    BufferedImage bi;
+    private BufferedImage bi;
+    private final int width_one = 255;
+    private final int height_one = 255;
+    private final double fractionForNextGeneration = 0;
 
     public Canvas(BufferedImage target, List<Triangle> candidates) {
         this.target = target;
@@ -26,21 +26,21 @@ public class Canvas {
             this.triangles = candidates;
         }
         this.bi = new BufferedImage(256, 256, BufferedImage.TYPE_INT_ARGB);
-        draw();
+        draw(bi);
         updateMatch();
     }
 
-    public void updateMatch() {
+    private void updateMatch() {
 
         this.matchRate = 0;
         for (int x = 0; x < 256; x++) {
             for (int y = 0; y < 256; y++) {
-                int tarColor = target.getRGB(x, y);
+                int tarColor = this.target.getRGB(x, y);
                 int tarR = (tarColor & 0xFF0000) >> 16;
                 int tarG = (tarColor & 0xFF00) >> 8;
                 int tarB = tarColor & 0xFF;
 
-                int thisColor = bi.getRGB(x, y);
+                int thisColor = this.bi.getRGB(x, y);
                 int r = (thisColor & 0xFF0000) >> 16;
                 int g = (thisColor & 0xFF00) >> 8;
                 int b = thisColor & 0xFF;
@@ -53,10 +53,10 @@ public class Canvas {
         this.matchRate *= -1;
     }
 
-    private void draw() {
+    private void draw(BufferedImage bi) {
         for (Triangle trg: this.getTriangles()) {
             Graphics2D g2d = (Graphics2D) bi.getGraphics();
-            g2d.setColor(trg.color);
+            g2d.setColor(trg.getColor());
             g2d.fillPolygon(trg);
         }
     }
@@ -138,5 +138,12 @@ public class Canvas {
         this.matchRate = matchRate;
     }
 
+    public BufferedImage getBi() {
+        return bi;
+    }
+
+    public void setBi(BufferedImage bi) {
+        this.bi = bi;
+    }
 
 }

@@ -10,11 +10,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Triangle extends Polygon {
 
-    BufferedImage target;
-
-    double fitness;
+    private BufferedImage target;
+    private double fitness;
     private Genotype genotype;
-    Color color;
+    private Color color;
     private final double mutateRate = 0.01;
 
     public Triangle(Genotype gene, BufferedImage target) {
@@ -34,7 +33,7 @@ public class Triangle extends Polygon {
         getColorFromGene(gene);
         this.genotype = gene;
         this.target = target;
-        fitness = calFitness(target);
+        this.fitness = calFitness(target);
     }
 
     private void getColorFromGene(Genotype gene) {
@@ -46,7 +45,7 @@ public class Triangle extends Polygon {
         this.color = new Color(r, g, b, a);
     }
 
-    public double calFitness(BufferedImage target) {
+    private double calFitness(BufferedImage target) {
         double res = 0;
         for (int x = 0; x < 256; x++) {
             for (int y = 0; y < 256; y++) {
@@ -71,9 +70,9 @@ public class Triangle extends Polygon {
         int tarB = tarColor & 0xFF;
 
 //        int a = genotype.getColorChromo().getAlpha();
-        int r = genotype.getColorChromo().getRed();
-        int g = genotype.getColorChromo().getGreen();
-        int b = genotype.getColorChromo().getBlue();
+        int r = this.genotype.getColorChromo().getRed();
+        int g = this.genotype.getColorChromo().getGreen();
+        int b = this.genotype.getColorChromo().getBlue();
 
         double tmp = Math.pow((r - tarR), 2) + Math.pow((g - tarG), 2) + Math.pow((b - tarB), 2);
         return tmp;
@@ -142,5 +141,14 @@ public class Triangle extends Polygon {
 
     public void setGenotype(Genotype genotype) {
         this.genotype = genotype;
+    }
+
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

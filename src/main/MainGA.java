@@ -25,7 +25,7 @@ public class MainGA {
 
         while (true) {
             if (i % 1023 == 0) {
-                BufferedImage output = canvas.bi;
+                BufferedImage output = canvas.getBi() ;
                 FileOutputStream pngOutPut = new FileOutputStream("res_generation_" + (i + 1) + ".png");
 //                for (main.Triangle trg: canvas.triangles) {
 //                    Graphics2D g2d = (Graphics2D) output.getGraphics();
