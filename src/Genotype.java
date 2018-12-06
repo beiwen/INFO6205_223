@@ -95,83 +95,83 @@ public class Genotype {
     }
 
     public Genotype mutation(Genotype parent) {
-        Genotype mutationResult = new Genotype();
-        mutationResult.setOne(new CoordinateChromo(parent.getOne().getHorizontal(), parent.getOne().getVertical()));
-        mutationResult.setTwo(new CoordinateChromo(parent.getTwo().getHorizontal(), parent.getTwo().getVertical()));
-        mutationResult.setThree(new CoordinateChromo(parent.getThree().getHorizontal(), parent.getThree().getVertical()));
-        mutationResult.setColorChromo(new ColorChromo(parent.getColorChromo().getRed(), parent.getColorChromo().getGreen(),
-                                                      parent.getColorChromo().getBlue(), parent.getColorChromo().getAlpha()));
+        Genotype mutationResult = new Genotype(255,255);
+//        mutationResult.setOne(new CoordinateChromo(parent.getOne().getHorizontal(), parent.getOne().getVertical()));
+//        mutationResult.setTwo(new CoordinateChromo(parent.getTwo().getHorizontal(), parent.getTwo().getVertical()));
+//        mutationResult.setThree(new CoordinateChromo(parent.getThree().getHorizontal(), parent.getThree().getVertical()));
+//        mutationResult.setColorChromo(new ColorChromo(parent.getColorChromo().getRed(), parent.getColorChromo().getGreen(),
+//                                                      parent.getColorChromo().getBlue(), parent.getColorChromo().getAlpha()));
         if(mutateOrNot(maxMutateRate)) {
-           mutationResult.one.horizontal = tlr.nextInt(0, 256);
-           mutationResult.one.vertical = tlr.nextInt(0, 256);
+           mutationResult.getOne().setHorizontal(tlr.nextInt(0, 256));
+           mutationResult.getOne().setVertical(tlr.nextInt(0, 256));
         }
         if(mutateOrNot(midMutateRate)) {
-           mutationResult.one.horizontal = Math.min(Math.max(0, parent.one.horizontal + tlr.nextInt(-15, 16)), 255);
-           mutationResult.one.vertical = Math.min(Math.max(0, parent.one.vertical + tlr.nextInt(-15, 16)), 255);
+           mutationResult.getOne().setHorizontal(Math.min(Math.max(0, parent.getOne().getHorizontal() + tlr.nextInt(-15, 16)), 255));
+           mutationResult.getOne().setVertical(Math.min(Math.max(0, parent.getOne().getVertical() + tlr.nextInt(-15, 16)), 255));
         }
         if(mutateOrNot(minMutateRate)) {
-           mutationResult.one.horizontal = Math.min(Math.max(0, parent.one.horizontal + tlr.nextInt(-3, 4)), 255);
-           mutationResult.one.vertical = Math.min(Math.max(0, parent.one.vertical + tlr.nextInt(-3, 4)), 255);
+           mutationResult.getOne().setHorizontal(Math.min(Math.max(0, parent.getOne().getHorizontal() + tlr.nextInt(-3, 4)), 255));
+           mutationResult.getOne().setHorizontal(Math.min(Math.max(0, parent.getOne().getVertical() + tlr.nextInt(-3, 4)), 255));
         }
         if(mutateOrNot(maxMutateRate)) {
-           mutationResult.two.horizontal = tlr.nextInt(0, 256);
-           mutationResult.two.vertical = tlr.nextInt(0, 256);
+           mutationResult.getTwo().setHorizontal(tlr.nextInt(0, 256));
+           mutationResult.getTwo().setVertical(tlr.nextInt(0, 256));
         }
         if(mutateOrNot(midMutateRate)) {
-           mutationResult.two.horizontal = Math.min(Math.max(0, parent.two.horizontal + tlr.nextInt(-15, 16)), 255);
-           mutationResult.two.vertical = Math.min(Math.max(0, parent.two.vertical + tlr.nextInt(-15, 16)), 255);
+           mutationResult.getTwo().setHorizontal(Math.min(Math.max(0, parent.getTwo().getHorizontal() + tlr.nextInt(-15, 16)), 255));
+           mutationResult.getTwo().setVertical(Math.min(Math.max(0, parent.getTwo().getVertical()+ tlr.nextInt(-15, 16)), 255));
         }
         if(mutateOrNot(minMutateRate)) {
-           mutationResult.two.horizontal = Math.min(Math.max(0, parent.two.horizontal + tlr.nextInt(-3, 4)), 255);
-           mutationResult.two.vertical = Math.min(Math.max(0, parent.two.vertical + tlr.nextInt(-3, 4)), 255);
+           mutationResult.getTwo().setHorizontal(Math.min(Math.max(0, parent.getTwo().getHorizontal() + tlr.nextInt(-3, 4)), 255));
+           mutationResult.getTwo().setVertical(Math.min(Math.max(0, parent.getTwo().getVertical() + tlr.nextInt(-3, 4)), 255));
         }
 
         if(mutateOrNot(maxMutateRate)) {
-           mutationResult.three.horizontal = tlr.nextInt(0, 256);
-           mutationResult.three.vertical = tlr.nextInt(0, 256);
+           mutationResult.getThree().setHorizontal(tlr.nextInt(0, 256));
+           mutationResult.getThree().setVertical(tlr.nextInt(0, 256));
         }
         if(mutateOrNot(midMutateRate)) {
-           mutationResult.three.horizontal = Math.min(Math.max(0, parent.three.horizontal + tlr.nextInt(-15, 16)), 255);
-           mutationResult.three.vertical = Math.min(Math.max(0, parent.three.vertical + tlr.nextInt(-15, 16)), 255);
+           mutationResult.getThree().setHorizontal(Math.min(Math.max(0, parent.getThree().getHorizontal() + tlr.nextInt(-15, 16)), 255));
+           mutationResult.getThree().setVertical(Math.min(Math.max(0, parent.getThree().getVertical() + tlr.nextInt(-15, 16)), 255));
         }
         if(mutateOrNot(minMutateRate)) {
-           mutationResult.three.horizontal = Math.min(Math.max(0, parent.three.horizontal + tlr.nextInt(-3, 4)), 255);
-           mutationResult.three.vertical = Math.min(Math.max(0, parent.three.vertical + tlr.nextInt(-3, 4)), 255);
+           mutationResult.getThree().setHorizontal(Math.min(Math.max(0, parent.getThree().getHorizontal() + tlr.nextInt(-3, 4)), 255));
+           mutationResult.getThree().setVertical(Math.min(Math.max(0, parent.getThree().getVertical() + tlr.nextInt(-3, 4)), 255));
         }
 
         // corlor
         if(mutateOrNot(maxMutateRate)) {
-            mutationResult.colorChromo.red = tlr.nextInt(0, 256);
+            mutationResult.getColorChromo().setRed(tlr.nextInt(0, 256));
         }
         if(mutateOrNot(midMutateRate)) {
-            mutationResult.colorChromo.red = Math.min(Math.max(0, parent.colorChromo.red + tlr.nextInt(-30, 31)), 255);
+            mutationResult.getColorChromo().setRed(Math.min(Math.max(0, parent.getColorChromo().getRed() + tlr.nextInt(-30, 31)), 255));
         }
         if(mutateOrNot(minMutateRate)) {
-            mutationResult.colorChromo.red = Math.min(Math.max(0, parent.colorChromo.red + tlr.nextInt(-10, 11)), 255);
+            mutationResult.getColorChromo().setRed(Math.min(Math.max(0, parent.getColorChromo().getRed() + tlr.nextInt(-10, 11)), 255));
         }
 
         if(mutateOrNot(maxMutateRate)) {
-            mutationResult.colorChromo.green = tlr.nextInt(0, 256);
+            mutationResult.getColorChromo().setGreen(tlr.nextInt(0, 256));
         }
         if(mutateOrNot(midMutateRate)) {
-            mutationResult.colorChromo.green = Math.min(Math.max(0, parent.colorChromo.green + tlr.nextInt(-30, 31)), 255);
+            mutationResult.getColorChromo().setGreen(Math.min(Math.max(0, parent.getColorChromo().getGreen() + tlr.nextInt(-30, 31)), 255));
         }
         if(mutateOrNot(minMutateRate)) {
-            mutationResult.colorChromo.green = Math.min(Math.max(0, parent.colorChromo.green + tlr.nextInt(-10, 11)), 255);
+            mutationResult.getColorChromo().setGreen(Math.min(Math.max(0, parent.getColorChromo().getGreen() + tlr.nextInt(-10, 11)), 255));
         }
 
         if(mutateOrNot(maxMutateRate)) {
-            mutationResult.colorChromo.blue = tlr.nextInt(0, 256);
+            mutationResult.getColorChromo().setBlue(tlr.nextInt(0, 256));
         }
         if(mutateOrNot(midMutateRate)) {
-            mutationResult.colorChromo.blue = Math.min(Math.max(0, parent.colorChromo.blue + tlr.nextInt(-30, 31)), 255);
+            mutationResult.getColorChromo().setBlue(Math.min(Math.max(0, parent.getColorChromo().getBlue() + tlr.nextInt(-30, 31)), 255));
         }
         if(mutateOrNot(minMutateRate)) {
-            mutationResult.colorChromo.blue = Math.min(Math.max(0, parent.colorChromo.blue + tlr.nextInt(-10, 11)), 255);
+            mutationResult.getColorChromo().setBlue(Math.min(Math.max(0, parent.getColorChromo().getBlue() + tlr.nextInt(-10, 11)), 255));
         }
 
         if(mutateOrNot(midMutateRate  )) {
-            mutationResult.colorChromo.alpha = tlr.nextInt(95, 116);
+            mutationResult.getColorChromo().setAlpha(tlr.nextInt(95, 116));
         }
         return mutationResult;
     }
@@ -215,7 +215,7 @@ public class Genotype {
             this.red = tlr.nextInt(0, 256);
             this.green = tlr.nextInt(0, 256);
             this.blue = tlr.nextInt(0, 256);
-            this.alpha = tlr.nextInt(0, 256);
+            this.alpha = tlr.nextInt(95, 116);
         }
 
         public ColorChromo(int red, int green, int bule, int alpha) {

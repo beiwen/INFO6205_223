@@ -9,8 +9,8 @@ public class Canvas {
     private final int height_one = 255;
     private BufferedImage target;
     private final double fractionForNextGeneration = 0;
-    double matchRate;
-    List<Triangle> triangles;
+    private double matchRate;
+    private List<Triangle> triangles;
     BufferedImage bi;
 
     public Canvas(BufferedImage target, List<Triangle> candidates) {
@@ -44,7 +44,7 @@ public class Canvas {
                 int b = thisColor & 0xFF;
 
                 double tmp = Math.pow((r - tarR), 2) + Math.pow((g - tarG), 2) + Math.pow((b - tarB), 2);
-                matchRate += tmp;
+                this.matchRate += tmp;
             }
         }
 
@@ -52,24 +52,21 @@ public class Canvas {
     }
 
     private void draw() {
-        for (Triangle trg: this.triangles) {
+        for (Triangle trg: this.getTriangles()) {
             Graphics2D g2d = (Graphics2D) bi.getGraphics();
             g2d.setColor(trg.color);
             g2d.fillPolygon(trg);
         }
     }
 
-    public Canvas genNextGeneration() {
-        List<List<Triangle>> selectedCandidates = selection(this.triangles);
+    public Canvas genNextGeneration(List<Triangle> triangles) {
+        List<List<Triangle>> selectedCandidates = selection(triangles);
         List<Triangle> nextCandidates = new ArrayList<>();
         for(Triangle triangle: selectedCandidates.get(0)) {
-            List<Triangle> mutationChildren = triangle.reproduction(null);
-            if(mutationChildren == null) {
-                nextCandidates.add(triangle);
-            } else {
-                nextCandidates.addAll(mutationChildren);
-            }
+            Triangle mutationChildren = triangle.mutation(triangle);
+            nextCandidates.add(mutationChildren);
         }
+
         List<Triangle> trianglesForCrossover = selectedCandidates.get(1);
         while(!trianglesForCrossover.isEmpty()) {
             ThreadLocalRandom tlr = ThreadLocalRandom.current();
@@ -115,11 +112,29 @@ public class Canvas {
     static class MyComparator implements Comparator<Triangle> {
         @Override
         public int compare(Triangle o1, Triangle o2) {
-            if(o1.fitness == o2.fitness) {
+            if(o1.getFitness() == o2.getFitness()) {
                 return 0;
             }
-            return o1.fitness < o2.fitness ? -1 : 1;
+            return o1.getFitness() < o2.getFitness() ? -1 : 1;
         }
     }
+
+    public List<Triangle> getTriangles() {
+        return triangles;
+    }
+
+    public void setTriangles(List<Triangle> triangles) {
+        this.triangles = triangles;
+    }
+
+
+    public double getMatchRate() {
+        return matchRate;
+    }
+
+    public void setMatchRate(double matchRate) {
+        this.matchRate = matchRate;
+    }
+
 
 }

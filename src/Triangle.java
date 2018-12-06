@@ -113,6 +113,18 @@ public class Triangle extends Polygon {
         return res.subList(0, 2);
     }
 
+
+    public Triangle mutation(Triangle parent) {
+        ThreadLocalRandom tlr = ThreadLocalRandom.current();
+        double mutationOrNot = tlr.nextDouble();
+        if(mutationOrNot < mutateRate) {
+            Genotype mutationChild = parent.getGenotype().mutation(parent.getGenotype());
+            return new Triangle(mutationChild, target);
+        } else {
+            return parent;
+        }
+    }
+
     public double getFitness() {
         return fitness;
     }
@@ -121,4 +133,12 @@ public class Triangle extends Polygon {
         this.fitness = fitness;
     }
 
+
+    public Genotype getGenotype() {
+        return genotype;
+    }
+
+    public void setGenotype(Genotype genotype) {
+        this.genotype = genotype;
+    }
 }

@@ -38,10 +38,10 @@ public class MainGA {
                     e.printStackTrace();
                 }
             }
-            Canvas next = canvas.genNextGeneration();
-            System.out.println("Generation " + (i + 1) + " " + canvas.matchRate + " " + next.matchRate);
+            Canvas next = canvas.genNextGeneration(canvas.getTriangles());
+            System.out.println("Generation " + (i + 1) + " " + canvas.getMatchRate() + " " + next.getMatchRate());
 
-            if (next.matchRate > canvas.matchRate) {
+            if (next.getMatchRate() > canvas.getMatchRate()) {
                 canvas = next;
             }
 //            canvas = next;
