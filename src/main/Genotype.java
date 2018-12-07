@@ -8,9 +8,9 @@ public class Genotype {
     private CoordinateChromo two;
     private CoordinateChromo three;
     private ColorChromo colorChromo;
-    private final double maxMutateRate = 0.08;
-    private final double midMutateRate = 0.3;
-    private final double minMutateRate = 0.8;
+    private final double maxMutateRate = 0.015;
+    private final double midMutateRate = 0.13;
+    private final double minMutateRate = 0.5;
     private final int fecundityOfmating = 2;
     private ThreadLocalRandom tlr = ThreadLocalRandom.current();
 
@@ -112,8 +112,8 @@ public class Genotype {
            mutationResult.getOne().setVertical(Math.min(Math.max(0, parent.getOne().getVertical() + tlr.nextInt(-15, 16)), 255));
         }
         if(mutateOrNot(minMutateRate)) {
-           mutationResult.getOne().setHorizontal(Math.min(Math.max(0, parent.getOne().getHorizontal() + tlr.nextInt(-3, 4)), 255));
-           mutationResult.getOne().setHorizontal(Math.min(Math.max(0, parent.getOne().getVertical() + tlr.nextInt(-3, 4)), 255));
+           mutationResult.getOne().setHorizontal(Math.min(Math.max(0, parent.getOne().getHorizontal() + tlr.nextInt(-7, 8)), 255));
+           mutationResult.getOne().setHorizontal(Math.min(Math.max(0, parent.getOne().getVertical() + tlr.nextInt(-7, 8)), 255));
         }
         if(mutateOrNot(maxMutateRate)) {
            mutationResult.getTwo().setHorizontal(tlr.nextInt(0, 256));
@@ -124,8 +124,8 @@ public class Genotype {
            mutationResult.getTwo().setVertical(Math.min(Math.max(0, parent.getTwo().getVertical()+ tlr.nextInt(-15, 16)), 255));
         }
         if(mutateOrNot(minMutateRate)) {
-           mutationResult.getTwo().setHorizontal(Math.min(Math.max(0, parent.getTwo().getHorizontal() + tlr.nextInt(-3, 4)), 255));
-           mutationResult.getTwo().setVertical(Math.min(Math.max(0, parent.getTwo().getVertical() + tlr.nextInt(-3, 4)), 255));
+           mutationResult.getTwo().setHorizontal(Math.min(Math.max(0, parent.getTwo().getHorizontal() + tlr.nextInt(-7, 8)), 255));
+           mutationResult.getTwo().setVertical(Math.min(Math.max(0, parent.getTwo().getVertical() + tlr.nextInt(-7, 8)), 255));
         }
 
         if(mutateOrNot(maxMutateRate)) {
@@ -137,8 +137,8 @@ public class Genotype {
            mutationResult.getThree().setVertical(Math.min(Math.max(0, parent.getThree().getVertical() + tlr.nextInt(-15, 16)), 255));
         }
         if(mutateOrNot(minMutateRate)) {
-           mutationResult.getThree().setHorizontal(Math.min(Math.max(0, parent.getThree().getHorizontal() + tlr.nextInt(-3, 4)), 255));
-           mutationResult.getThree().setVertical(Math.min(Math.max(0, parent.getThree().getVertical() + tlr.nextInt(-3, 4)), 255));
+           mutationResult.getThree().setHorizontal(Math.min(Math.max(0, parent.getThree().getHorizontal() + tlr.nextInt(-7, 8)), 255));
+           mutationResult.getThree().setVertical(Math.min(Math.max(0, parent.getThree().getVertical() + tlr.nextInt(-7, 8)), 255));
         }
 
         // corlor
@@ -172,7 +172,7 @@ public class Genotype {
             mutationResult.getColorChromo().setBlue(Math.min(Math.max(0, parent.getColorChromo().getBlue() + tlr.nextInt(-10, 11)), 255));
         }
 
-        if(mutateOrNot(midMutateRate  )) {
+        if(mutateOrNot(midMutateRate)) {
             mutationResult.getColorChromo().setAlpha(tlr.nextInt(95, 116));
         }
         return mutationResult;
