@@ -10,9 +10,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Triangle extends Polygon {
 
+    private Genotype genotype;
     private BufferedImage target;
     private double fitness;
-    private Genotype genotype;
     private Color color;
     private final double mutateRate = 0.01;
 
@@ -80,19 +80,6 @@ public class Triangle extends Polygon {
 
     public List<Triangle> reproduction(Triangle pair) {
         List<Triangle> res = new ArrayList<>();
-
-        // mutation
-        if (pair == null) {
-            ThreadLocalRandom tlr = ThreadLocalRandom.current();
-            double mutationOrNot = tlr.nextDouble();
-            if(mutationOrNot < mutateRate) {
-                Genotype mutationChild = this.genotype.mutation(this.genotype);
-                res.add(new Triangle(mutationChild, target));
-                return res;
-            } else {
-                return null;
-            }
-        }
 
         // crossover
         List<Genotype> genes = pair.genotype.crossover(this.genotype);

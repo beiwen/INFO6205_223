@@ -13,7 +13,7 @@ public class Canvas {
     private BufferedImage bi;
     private final int width_one = 255;
     private final int height_one = 255;
-    private final double fractionForNextGeneration = 0;
+    private final double fractionForCrossover = 0.02;
 
     public Canvas(BufferedImage target, List<Triangle> candidates) {
         this.target = target;
@@ -90,7 +90,7 @@ public class Canvas {
 
     private List<List<Triangle>> selection(List<Triangle> triangles) {
         List<List<Triangle>> selectionResult = new ArrayList<>(2);
-        int numberOfCrossover = (int)(triangles.size() * fractionForNextGeneration);
+        int numberOfCrossover = (int)(triangles.size() * fractionForCrossover);
         PriorityQueue<Triangle> partForMutationPQ = new PriorityQueue<>(triangles.size() - numberOfCrossover, new MyComparator());
         List<Triangle> partForCrossover = new LinkedList<>();
         for(Triangle triangle : triangles) {
