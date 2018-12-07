@@ -1,6 +1,7 @@
 import main.Canvas;
 import main.Genotype;
 import main.Triangle;
+import org.junit.Test;
 import org.junit.jupiter.api.Test;
 
 import java.awt.image.BufferedImage;
