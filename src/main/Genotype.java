@@ -180,7 +180,7 @@ public class Genotype {
 
 
 
-    class CoordinateChromo {
+    public class CoordinateChromo {
         private int vertical;
         private int horizontal;
 
@@ -207,7 +207,7 @@ public class Genotype {
         }
     }
 
-    class ColorChromo {
+    public class ColorChromo {
         private int red;
         private int green;
         private int blue;
